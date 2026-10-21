@@ -9,25 +9,32 @@
 :root{
   --bg:#fbf6f8; --surface:#ffffff; --fg:#2a1a24; --muted:#7a6571; --line:#ecdde5;
   --candy:#e0245e; --stick:#f2b705; --ok:#1f8a4c; --err:#c62828;
+  --gold:#f2b705; --silver:#b8c0cc; --bronze:#c98a4b;
   --display:"Bricolage Grotesque",system-ui,sans-serif;
   --body:"Figtree",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,monospace;
 }
 @media (prefers-color-scheme:dark){:root{
   --bg:#1b1218; --surface:#251a21; --fg:#f6e9ef; --muted:#b39aa8; --line:#3a2a33;
-  --candy:#ff5c8a; --stick:#ffcf3a; --ok:#4cc985; --err:#ff7a7a; color-scheme:dark}}
+  --candy:#ff5c8a; --stick:#ffcf3a; --ok:#4cc985; --err:#ff7a7a;
+  --gold:#ffcf3a; --silver:#9aa4b2; --bronze:#d39a5e; color-scheme:dark}}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
 .wrap{max-width:860px;margin:0 auto;padding:32px 16px 56px;display:grid;gap:28px}
 .eyebrow{font:600 .75rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
-h1{font:800 clamp(2rem,6vw,3.4rem)/1.02 var(--display);margin:6px 0 0;text-wrap:balance}
+h1{font:800 clamp(2rem,6vw,3.4rem)/1.02 var(--display);margin:6px 0 0;text-wrap:balance;max-width:12ch}
 h2{font:800 1.4rem/1.2 var(--display);margin:0}
+
+/* Cabecera con chupachups */
 .hero{background:var(--candy);color:#fff;border-radius:28px;padding:28px clamp(18px,4vw,36px);display:grid;gap:20px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.18) 0 20deg,transparent 20deg 40deg);pointer-events:none}
+.hero > *{position:relative;z-index:1}
 .hero .eyebrow{color:#ffe3ec}
+.lolly{position:absolute;z-index:0;right:clamp(-30px,2vw,24px);top:-18px;width:clamp(110px,24vw,190px);height:auto;pointer-events:none}
+.lolly .candy{transform-origin:100px 80px}
+@media (prefers-reduced-motion:no-preference){.lolly .candy{animation:spin 14s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
 .clock{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.unit{background:rgba(255,255,255,.14);border-radius:16px;padding:14px 8px;text-align:center}
+.unit{background:rgba(255,255,255,.16);backdrop-filter:blur(2px);border-radius:16px;padding:14px 8px;text-align:center}
 .unit b{display:block;font:700 clamp(2rem,8vw,3.6rem)/1 var(--mono);font-variant-numeric:tabular-nums}
 .unit span{font:600 .72rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;opacity:.85}
 .msg{font:600 1.05rem/1.4 var(--body);margin:0}
@@ -35,39 +42,74 @@ h2{font:800 1.4rem/1.2 var(--display);margin:0}
 .target input{font:500 .95rem var(--mono);border:0;border-radius:10px;padding:8px 10px;background:var(--stick);color:#2a1a24}
 .target input:disabled{opacity:1}
 .meta{font:500 .8rem var(--mono);opacity:.8}
+
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px clamp(14px,3vw,26px);display:grid;gap:16px}
 .head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
 .total{font:700 .95rem var(--mono);color:var(--muted)}
 .total b{color:var(--candy);font-size:1.3rem}
-.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
 button{font:600 .85rem var(--body);border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:7px 14px;cursor:pointer}
 button:hover{border-color:var(--candy);color:var(--candy)}
 button:focus-visible,input:focus-visible{outline:2px solid var(--candy);outline-offset:2px}
 button[aria-pressed="true"],button.primary{background:var(--candy);border-color:var(--candy);color:#fff}
 button:disabled{opacity:.5;cursor:default}
+
+/* Lista */
 ul{list-style:none;margin:0;padding:0;display:grid}
-li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
 li:first-child{border-top:0}
+.pos{font:700 .9rem var(--mono);color:var(--muted);min-width:2.2ch;text-align:right}
 .name{min-width:0;font-weight:600}
-.pops{display:block;margin-top:4px;font-size:.9rem;letter-spacing:2px;color:var(--candy);min-height:1em;overflow-wrap:anywhere}
+.pops{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;min-height:12px}
+.pops i{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6 0 22%,transparent 24%),var(--candy)}
 .zero .name{color:var(--muted);font-weight:400}
 .ctr{display:flex;align-items:center;gap:6px}
 .ctr button{width:34px;height:34px;padding:0;font-size:1.1rem;line-height:1}
 .ctr output{font:700 1.15rem var(--mono);font-variant-numeric:tabular-nums;min-width:2ch;text-align:center}
 body:not(.admin) .ctr button{display:none}
-.admin-bar{display:grid;gap:10px;border:1px dashed var(--line);border-radius:16px;padding:14px}
-.admin-bar input{font:500 .9rem var(--mono);padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
+
+/* Podio */
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:10px;padding-top:8px}
+.step{display:grid;gap:10px;justify-items:center;text-align:center;min-width:0}
+.who{display:grid;gap:4px;justify-items:center;min-width:0}
+.who strong{font:600 .92rem/1.25 var(--body);overflow-wrap:anywhere}
+.who span{font:700 .85rem var(--mono);color:var(--muted)}
+.block{width:100%;border-radius:14px 14px 4px 4px;display:grid;place-items:center;color:#2a1a24;font:800 2.2rem/1 var(--display)}
+.p1 .block{height:150px;background:var(--gold)}
+.p2 .block{height:110px;background:var(--silver)}
+.p3 .block{height:80px;background:var(--bronze)}
+.p1{order:2}.p2{order:1}.p3{order:3}
+.medal{width:44px;height:44px}
+.empty{color:var(--muted);text-align:center;margin:0}
+
+/* Profesor */
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border:1px dashed var(--line);border-radius:16px;padding:12px}
+.field{display:grid;gap:6px}
+.field input{font:500 .9rem var(--mono);padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .status{font-size:.9rem;margin:0}
 .status.ok{color:var(--ok)} .status.err{color:var(--err)}
 .note{font-size:.85rem;color:var(--muted);margin:0}
+.badge{font:600 .75rem var(--body);padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.badge.on{border-color:var(--ok);color:var(--ok)}
 footer{display:flex;justify-content:flex-end}
 @media (prefers-reduced-motion:no-preference){.tick{animation:pop .25s ease}@keyframes pop{50%{transform:scale(1.25)}}}
+@media (max-width:480px){.p1 .block{height:120px}.p2 .block{height:90px}.p3 .block{height:66px}.block{font-size:1.7rem}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
+    <svg class="lolly" viewBox="0 0 200 185" aria-hidden="true">
+      <rect x="93" y="120" width="14" height="70" rx="7" fill="#fff" opacity=".95"/>
+      <g class="candy">
+        <circle cx="100" cy="80" r="70" fill="#fff"/>
+        <circle cx="100" cy="80" r="62" fill="#ffd23f"/>
+        <path d="M103.0 80.0 L103.2 80.3 L103.4 80.7 L103.5 81.1 L103.5 81.6 L103.5 82.0 L103.5 82.5 L103.4 83.0 L103.2 83.5 L102.9 84.0 L102.6 84.5 L102.2 84.9 L101.7 85.3 L101.2 85.7 L100.6 86.0 L100.0 86.2 L99.3 86.4 L98.6 86.5 L97.9 86.6 L97.1 86.5 L96.3 86.4 L95.6 86.1 L94.8 85.8 L94.1 85.3 L93.4 84.8 L92.7 84.2 L92.1 83.5 L91.6 82.7 L91.1 81.9 L90.8 81.0 L90.5 80.0 L90.3 79.0 L90.3 77.9 L90.3 76.9 L90.5 75.8 L90.8 74.7 L91.3 73.7 L91.8 72.6 L92.5 71.7 L93.3 70.7 L94.2 69.9 L95.2 69.1 L96.3 68.5 L97.4 68.0 L98.7 67.5 L100.0 67.2 L101.4 67.1 L102.7 67.1 L104.1 67.3 L105.5 67.6 L106.9 68.0 L108.3 68.6 L109.5 69.4 L110.8 70.3 L111.9 71.4 L112.9 72.5 L113.8 73.8 L114.6 75.3 L115.2 76.8 L115.7 78.4 L116.0 80.0 L116.1 81.7 L116.1 83.4 L115.8 85.1 L115.4 86.9 L114.8 88.5 L114.0 90.2 L113.0 91.7 L111.9 93.2 L110.6 94.5 L109.1 95.7 L107.5 96.8 L105.7 97.7 L103.9 98.4 L102.0 98.9 L100.0 99.2 L98.0 99.4 L95.9 99.3 L93.9 98.9 L91.8 98.4 L89.8 97.6 L87.9 96.6 L86.1 95.4 L84.4 94.0 L82.8 92.5 L81.5 90.7 L80.2 88.8 L79.2 86.8 L78.4 84.6 L77.8 82.3 L77.5 80.0 L77.4 77.6 L77.6 75.2 L78.0 72.8 L78.7 70.5 L79.6 68.2 L80.7 66.0 L82.2 63.9 L83.8 62.0 L85.6 60.2 L87.7 58.6 L89.9 57.3 L92.2 56.1 L94.7 55.2 L97.3 54.6 L100.0 54.2 L102.7 54.2 L105.4 54.4 L108.2 54.9 L110.8 55.7 L113.4 56.8 L115.9 58.1 L118.2 59.7 L120.4 61.6 L122.4 63.7 L124.2 66.0 L125.7 68.6 L127.0 71.2 L127.9 74.1 L128.6 77.0 L129.0 80.0 L129.1 83.1 L128.8 86.1 L128.2 89.2 L127.3 92.1 L126.1 95.0 L124.5 97.8 L122.7 100.4 L120.6 102.8 L118.2 105.0 L115.6 107.0 L112.8 108.7 L109.8 110.1 L106.6 111.1 L103.3 111.9 L100.0 112.2 L96.6 112.3 L93.2 112.0 L89.8 111.3 L86.5 110.3 L83.3 108.9 L80.3 107.1 L77.4 105.1 L74.7 102.7 L72.3 100.1 L70.2 97.2 L68.4 94.1 L66.9 90.8 L65.7 87.3 L64.9 83.7 L64.5 80.0 L64.5 76.3 L64.9 72.5 L65.6 68.8 L66.8 65.2 L68.3 61.7 L70.2 58.4 L72.5 55.2 L75.1 52.3 L78.0 49.7 L81.2 47.4 L84.6 45.4 L88.2 43.8 L92.0 42.5 L96.0 41.7 L100.0 41.2 L104.1 41.2 L108.1 41.7 L112.2 42.5 L116.1 43.8 L119.9 45.5 L123.5 47.6 L126.9 50.1 L130.1 52.9 L132.9 56.1 L135.4 59.5 L137.6 63.3 L139.3 67.2 L140.7 71.4 L141.6 75.6 L142.0 80.0 L142.0 84.4 L141.5 88.8 L140.6 93.2 L139.2 97.4 L137.3 101.5 L135.0 105.5 L132.3 109.1 L129.3 112.5 L125.8 115.6 L122.1 118.2 L118.1 120.5 L113.8 122.4 L109.3 123.8 L104.7 124.8 L100.0 125.2 L95.2 125.2 L90.5 124.7 L85.8 123.7 L81.2 122.1 L76.8 120.1 L72.6 117.7 L68.7 114.8 L65.1 111.4 L61.8 107.7 L58.9 103.7 L56.5 99.4 L54.5 94.8 L53.0 90.0 L52.0 85.0 L51.5 80.0 L51.6 74.9 L52.1 69.8 L53.3 64.8 L54.9 59.9 L57.1 55.2 L59.7 50.7 L62.8 46.5 L66.4 42.7 L70.3 39.2 L74.7 36.1 L79.3 33.5 L84.2 31.4 L89.3 29.8 L94.6 28.7 L100.0 28.2 L105.4 28.3 L110.8 29.0 L116.2 30.2 L121.4 31.9 L126.4 34.2 L131.2 37.1 L135.6 40.4 L139.7 44.2 L143.4 48.4 L146.7 53.0 L149.5 58.0 L151.7 63.2 L153.4 68.7 L154.5 74.3 L155.0 80.0"
+          fill="none" stroke="#e0245e" stroke-width="9" stroke-linecap="round"/>
+        <ellipse cx="74" cy="50" rx="16" ry="9" fill="#fff" opacity=".55" transform="rotate(-35 74 50)"/>
+      </g>
+    </svg>
     <div>
       <div class="eyebrow">Cuenta atrás</div>
       <h1>Operación Chupachups</h1>
@@ -91,28 +133,38 @@ footer{display:flex;justify-content:flex-end}
       <h2>Chupachups por alumno</h2>
       <div class="total">Total <b id="total">0</b></div>
     </div>
-    <div class="tools">
-      <button id="sortList">Orden original</button>
-      <button id="sortRank">Ranking</button>
-      <button id="sortAlpha">A–Z</button>
+    <div class="tabs" role="group" aria-label="Vista">
+      <button id="viewRank">Orden de puntuación</button>
+      <button id="viewAlpha">Orden alfabético</button>
+      <button id="viewPodium">Podio</button>
     </div>
 
-    <div class="admin-bar" id="adminBar" hidden>
-      <div class="row" id="tokenRow">
-        <label for="token" style="flex-basis:100%">Token de GitHub (solo la primera vez en este navegador)</label>
-        <input type="password" id="token" placeholder="github_pat_…" autocomplete="off" style="flex:1 1 240px">
-        <button id="saveToken">Recordar token</button>
-      </div>
-      <div class="row">
-        <button class="primary" id="saveGh" disabled>Guardar cambios en GitHub</button>
-        <button id="forget">Olvidar token</button>
-        <button id="exitAdmin">Salir del modo profesor</button>
-      </div>
+    <div class="bar" id="adminBar" hidden>
+      <button class="primary" id="saveGh" disabled>Guardar cambios en GitHub</button>
+      <button id="exitAdmin">Salir del modo profesor</button>
       <p class="status" id="status"></p>
     </div>
 
     <ul id="list"></ul>
-    <p class="note" id="note"></p>
+    <div class="podium" id="podium" hidden></div>
+    <p class="note">Datos guardados en el repositorio. Se actualizan para todos cuando el profesor guarda.</p>
+  </section>
+
+  <section class="panel" id="tokenPanel" hidden>
+    <div class="head">
+      <h2>Acceso del profesor</h2>
+      <span class="badge" id="tokenBadge">Sin token</span>
+    </div>
+    <p class="note">Para guardar en GitHub hace falta un token con permiso <em>Contents: Read and write</em> sobre este repositorio. Se guarda solo en este navegador.</p>
+    <div class="field" id="tokenField">
+      <label for="token">Token de GitHub</label>
+      <input type="password" id="token" placeholder="github_pat_…" autocomplete="off">
+    </div>
+    <div class="row">
+      <button class="primary" id="saveToken">Recordar token</button>
+      <button id="forget">Olvidar token</button>
+    </div>
+    <p class="status" id="tokenStatus"></p>
   </section>
 
   <footer><button id="enterAdmin">Modo profesor</button></footer>
@@ -138,17 +190,16 @@ const CONFIG = {
 })();
 
 const $ = id => document.getElementById(id);
-let data = null, sort = "list", dirty = false;
+let data = null, view = "rank", dirty = false;
 const TOKEN_KEY = "chupachups-token";
 const getToken = () => { try { return localStorage.getItem(TOKEN_KEY) || ""; } catch(e) { return ""; } };
 
 /* ===== Carga de datos ===== */
 async function loadData(){
-  // 1) API de GitHub (versión más reciente, sin caché). 2) Si falla, el datos.json servido por Pages.
   if (CONFIG.OWNER && CONFIG.REPO) {
     try {
       const r = await fetch(`https://api.github.com/repos/${CONFIG.OWNER}/${CONFIG.REPO}/contents/${CONFIG.FILE}?ref=${CONFIG.BRANCH}&t=${Date.now()}`,
-        { headers: authHeaders() , cache: "no-store" });
+        { headers: authHeaders(), cache: "no-store" });
       if (r.ok) { const j = await r.json(); return JSON.parse(b64decode(j.content)); }
     } catch(e) {}
   }
@@ -181,20 +232,52 @@ function tick(){
 }
 setInterval(tick, 1000);
 
-/* ===== Lista ===== */
-function render(){
-  const rows = data.alumnos.map((a,i) => ({ i, ...a }));
-  if (sort === "rank") rows.sort((a,b) => b.chupachups - a.chupachups || a.i - b.i);
-  if (sort === "alpha") rows.sort((a,b) => a.nombre.localeCompare(b.nombre,"es"));
-  $("list").innerHTML = rows.map(r => `<li class="${r.chupachups ? "" : "zero"}">
-    <div class="name">${esc(r.nombre)}<span class="pops" aria-hidden="true">${"●".repeat(Math.min(r.chupachups,30))}</span></div>
-    <div class="ctr"><button data-i="${r.i}" data-d="-1" aria-label="Quitar uno">−</button>
-    <output>${r.chupachups}</output>
-    <button data-i="${r.i}" data-d="1" aria-label="Añadir uno">+</button></div></li>`).join("");
-  $("total").textContent = data.alumnos.reduce((a,b) => a + b.chupachups, 0);
-  [["list","sortList"],["rank","sortRank"],["alpha","sortAlpha"]].forEach(([k,id]) => $(id).setAttribute("aria-pressed", sort === k));
+/* ===== Puestos (empates comparten puesto) ===== */
+function ranked(){
+  const rows = data.alumnos.map((a,i) => ({ i, ...a }))
+    .sort((a,b) => b.chupachups - a.chupachups || a.nombre.localeCompare(b.nombre,"es"));
+  let pos = 0, last = null;
+  rows.forEach((r,k) => { if (r.chupachups !== last) { pos = k + 1; last = r.chupachups; } r.pos = pos; });
+  return rows;
 }
+
+/* ===== Lista y podio ===== */
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dots = n => "<i></i>".repeat(Math.min(n, 30));
+function render(){
+  $("total").textContent = data.alumnos.reduce((a,b) => a + b.chupachups, 0);
+  [["rank","viewRank"],["alpha","viewAlpha"],["podium","viewPodium"]].forEach(([k,id]) => $(id).setAttribute("aria-pressed", view === k));
+  $("list").hidden = view === "podium";
+  $("podium").hidden = view !== "podium";
+  if (view === "podium") return renderPodium();
+
+  let rows = ranked();
+  if (view === "alpha") rows = rows.slice().sort((a,b) => a.nombre.localeCompare(b.nombre,"es"));
+  $("list").innerHTML = rows.map(r => `<li class="${r.chupachups ? "" : "zero"}">
+    <span class="pos">${view === "rank" ? r.pos + "º" : ""}</span>
+    <div class="name">${esc(r.nombre)}<span class="pops" aria-hidden="true">${dots(r.chupachups)}</span></div>
+    <div class="ctr"><button data-i="${r.i}" data-d="-1" aria-label="Quitar uno a ${esc(r.nombre)}">−</button>
+    <output>${r.chupachups}</output>
+    <button data-i="${r.i}" data-d="1" aria-label="Añadir uno a ${esc(r.nombre)}">+</button></div></li>`).join("");
+}
+function renderPodium(){
+  // Los tres primeros puestos distintos; si hay empate, comparten escalón.
+  const rows = ranked().filter(r => r.chupachups > 0);
+  const scores = [...new Set(rows.map(r => r.chupachups))].slice(0, 3);
+  if (!scores.length) { $("podium").innerHTML = `<p class="empty" style="grid-column:1/-1">Todavía nadie tiene chupachups.</p>`; return; }
+  const colors = ["var(--gold)","var(--silver)","var(--bronze)"];
+  $("podium").innerHTML = [0,1,2].map(k => {
+    const sc = scores[k];
+    const people = sc === undefined ? [] : rows.filter(r => r.chupachups === sc);
+    return `<div class="step p${k+1}">
+      ${people.length ? `<svg class="medal" viewBox="0 0 44 44" aria-hidden="true">
+        <rect x="19.5" y="22" width="5" height="22" rx="2.5" fill="currentColor" opacity=".35"/>
+        <circle cx="22" cy="18" r="16" fill="${colors[k]}"/><circle cx="22" cy="18" r="10" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/></svg>` : ""}
+      <div class="who">${people.map(p => `<strong>${esc(p.nombre)}</strong>`).join("") || "<strong>—</strong>"}
+        ${people.length ? `<span>${sc} chupachups</span>` : ""}</div>
+      <div class="block">${k+1}º</div></div>`;
+  }).join("");
+}
 function markDirty(){ dirty = true; $("saveGh").disabled = false; setStatus("Hay cambios sin guardar.", ""); }
 
 $("list").addEventListener("click", e => {
@@ -204,19 +287,30 @@ $("list").addEventListener("click", e => {
   render(); markDirty();
 });
 $("when").addEventListener("input", () => { data.objetivo = $("when").value; tick(); markDirty(); });
-$("sortList").onclick = () => { sort = "list"; render(); };
-$("sortRank").onclick = () => { sort = "rank"; render(); };
-$("sortAlpha").onclick = () => { sort = "alpha"; render(); };
+$("viewRank").onclick = () => { view = "rank"; render(); };
+$("viewAlpha").onclick = () => { view = "alpha"; render(); };
+$("viewPodium").onclick = () => { view = "podium"; render(); };
 
 /* ===== Modo profesor ===== */
 function setStatus(t, cls){ const s = $("status"); s.textContent = t; s.className = "status " + (cls || ""); }
+function setTokenStatus(t, cls){ const s = $("tokenStatus"); s.textContent = t; s.className = "status " + (cls || ""); }
+function refreshToken(){
+  const has = !!getToken();
+  $("tokenBadge").textContent = has ? "Token guardado" : "Sin token";
+  $("tokenBadge").classList.toggle("on", has);
+  $("tokenField").hidden = has;
+  $("saveToken").hidden = has;
+  $("forget").hidden = !has;
+}
 function setAdmin(on){
   document.body.classList.toggle("admin", on);
   $("adminBar").hidden = !on;
+  $("tokenPanel").hidden = !on;
   $("enterAdmin").hidden = on;
   $("when").disabled = !on;
-  $("tokenRow").hidden = !!getToken();
+  refreshToken();
   if (on && !(CONFIG.OWNER && CONFIG.REPO)) setStatus("No se ha podido detectar el repositorio. Rellena OWNER y REPO en index.html.", "err");
+  if (on && !getToken()) setTokenStatus("Introduce tu token para poder guardar.", "");
 }
 $("enterAdmin").onclick = () => setAdmin(true);
 $("exitAdmin").onclick = () => {
@@ -225,15 +319,15 @@ $("exitAdmin").onclick = () => {
 };
 $("saveToken").onclick = () => {
   const t = $("token").value.trim();
-  if (!t) { setStatus("Pega primero el token.", "err"); return; }
+  if (!t) { setTokenStatus("Pega primero el token.", "err"); return; }
   try { localStorage.setItem(TOKEN_KEY, t); } catch(e) {}
-  $("token").value = ""; $("tokenRow").hidden = true;
-  setStatus("Token guardado en este navegador.", "ok");
+  $("token").value = ""; refreshToken();
+  setTokenStatus("Token guardado en este navegador.", "ok");
 };
-$("forget").onclick = () => { try { localStorage.removeItem(TOKEN_KEY); } catch(e) {} $("tokenRow").hidden = false; setStatus("Token borrado de este navegador.", ""); };
+$("forget").onclick = () => { try { localStorage.removeItem(TOKEN_KEY); } catch(e) {} refreshToken(); setTokenStatus("Token borrado de este navegador.", ""); };
 
 $("saveGh").onclick = async () => {
-  if (!getToken()) { setStatus("Falta el token de GitHub.", "err"); $("tokenRow").hidden = false; return; }
+  if (!getToken()) { setStatus("Falta el token. Añádelo en «Acceso del profesor».", "err"); $("token").focus(); return; }
   const url = `https://api.github.com/repos/${CONFIG.OWNER}/${CONFIG.REPO}/contents/${CONFIG.FILE}`;
   $("saveGh").disabled = true; setStatus("Guardando…", "");
   try {
@@ -255,7 +349,6 @@ window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); 
 /* ===== Inicio ===== */
 loadData().then(d => {
   data = d; $("when").value = data.objetivo; render(); tick();
-  $("note").textContent = "Datos guardados en el repositorio. Se actualizan para todos cuando el profesor guarda.";
 }).catch(e => { $("msg").textContent = "No se pudieron cargar los datos: " + e.message; });
 </script>
 </body>
