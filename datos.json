@@ -1,23 +1,77 @@
 {
   "objetivo": "2026-10-30T14:30",
   "alumnos": [
-    { "nombre": "ALEJANDRO ANGULO PERALEJO", "chupachups": 5 },
-    { "nombre": "LIAN NOVO PEÑA", "chupachups": 3 },
-    { "nombre": "SANTIAGO MOYA GONZÁLEZ", "chupachups": 3 },
-    { "nombre": "HAO HAN LIN", "chupachups": 1 },
-    { "nombre": "IKER ESPINOSA FRAILE", "chupachups": 1 },
-    { "nombre": "IÑIGO ELVIRA LÓPEZ", "chupachups": 1 },
-    { "nombre": "AHMED RAYAN GOUMGHAR RADI", "chupachups": 2 },
-    { "nombre": "MARCOS NAVAS SÁNCHEZ-BARROSO", "chupachups": 1 },
-    { "nombre": "EMILIO JESÚS FERNÁNDEZ LUNA", "chupachups": 0 },
-    { "nombre": "ADRIAN FRAILE MUÑOZ", "chupachups": 0 },
-    { "nombre": "ADRIAN GRAJALES BARROS", "chupachups": 0 },
-    { "nombre": "NICOLAS LOPEZ COSCOLLAR", "chupachups": 0 },
-    { "nombre": "HUGO MOYA CAMARMO", "chupachups": 0 },
-    { "nombre": "WLADIMIR ALEJANDRO CANTERO GIL", "chupachups": 0 },
-    { "nombre": "KAI XU", "chupachups": 0 },
-    { "nombre": "JAVIER CASCALLANA LARGO", "chupachups": 0 },
-    { "nombre": "JEFFERSON JOSUÉ NARVÁEZ LOBATO", "chupachups": 0 },
-    { "nombre": "PABLO DÍAZ RODRÍGUEZ", "chupachups": 0 }
+    {
+      "nombre": "ALEJANDRO ANGULO PERALEJO",
+      "chupachups": 5
+    },
+    {
+      "nombre": "LIAN NOVO PEÑA",
+      "chupachups": 3
+    },
+    {
+      "nombre": "SANTIAGO MOYA GONZÁLEZ",
+      "chupachups": 3
+    },
+    {
+      "nombre": "HAO HAN LIN",
+      "chupachups": 1
+    },
+    {
+      "nombre": "IKER ESPINOSA FRAILE",
+      "chupachups": 1
+    },
+    {
+      "nombre": "IÑIGO ELVIRA LÓPEZ",
+      "chupachups": 2
+    },
+    {
+      "nombre": "AHMED RAYAN GOUMGHAR RADI",
+      "chupachups": 2
+    },
+    {
+      "nombre": "MARCOS NAVAS SÁNCHEZ-BARROSO",
+      "chupachups": 1
+    },
+    {
+      "nombre": "EMILIO JESÚS FERNÁNDEZ LUNA",
+      "chupachups": 0
+    },
+    {
+      "nombre": "ADRIAN FRAILE MUÑOZ",
+      "chupachups": 0
+    },
+    {
+      "nombre": "ADRIAN GRAJALES BARROS",
+      "chupachups": 0
+    },
+    {
+      "nombre": "NICOLAS LOPEZ COSCOLLAR",
+      "chupachups": 0
+    },
+    {
+      "nombre": "HUGO MOYA CAMARMO",
+      "chupachups": 0
+    },
+    {
+      "nombre": "WLADIMIR ALEJANDRO CANTERO GIL",
+      "chupachups": 0
+    },
+    {
+      "nombre": "KAI XU",
+      "chupachups": 0
+    },
+    {
+      "nombre": "JAVIER CASCALLANA LARGO",
+      "chupachups": 0
+    },
+    {
+      "nombre": "JEFFERSON JOSUÉ NARVÁEZ LOBATO",
+      "chupachups": 0
+    },
+    {
+      "nombre": "PABLO DÍAZ RODRÍGUEZ",
+      "chupachups": 0
+    }
   ]
 }
